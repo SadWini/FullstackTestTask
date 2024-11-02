@@ -13,4 +13,9 @@ public class OrderRepository : IOrderRepository
         _goodItems.Add(index, order);
         return index;
     }
+
+    public IReadOnlyList<OrderDao> GetAll()
+    {
+        return _goodItems.Values.ToList().AsReadOnly();
+    }
 }

@@ -17,7 +17,7 @@ public class OrderDao
     public string RecipientAddress { get; set; }
        
     [Required]
-    public double Weight { get; set; }
+    public decimal Weight { get; set; }
 
     [Required]
     public DateTime PickupDate { get; set; }
