@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-public class Order
+public class OrderDao
 {
     public int Id { get; set; }
        
