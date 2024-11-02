@@ -22,7 +22,7 @@ public class OrderController : ControllerBase
     }
     
     [HttpPost]
-    [SwaggerOperation("метод добавления товара")]
+    [SwaggerOperation("метод добавления заказа")]
     [Route("/addGood")]
     public IActionResult AddGood(OrderDto orderDto)
     {
@@ -42,5 +42,13 @@ public class OrderController : ControllerBase
             PickupDate = orderDto.PickupDate,
         });
         return Ok(addedOrder);
+    }
+    
+    [HttpGet]
+    [SwaggerOperation("метод получения всех товаров")]
+    [Route("/findAll")]
+    public IActionResult FindAll(){
+        var value = _orderRepository.GetAll();
+        return Ok(value);
     }
 }
