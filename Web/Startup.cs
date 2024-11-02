@@ -6,7 +6,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
 using FluentValidation;
+using Npgsql;
 
 namespace Web;
 
@@ -29,6 +31,13 @@ public class Startup
         services.AddSingleton<IOrderRepository, OrderRepository>();
 
         services.AddValidatorsFromAssemblyContaining<OrderValidator>();
+        var connectionString = _configuration["PostgreSql:ConnectionString"];
+        var dbPassword = _configuration["PostgreSql:DbPassword"];
+        var builder = new NpgsqlConnectionStringBuilder(connectionString)
+        {
+            Password = dbPassword
+        };
+        services.AddDbContext<DataContext>(options => options.UseNpgsql(builder.ConnectionString));
     }
 
 
