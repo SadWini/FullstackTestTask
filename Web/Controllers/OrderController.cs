@@ -1,6 +1,7 @@
 using Domain.Interfaces;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Annotations;
 using Web.Controllers.Dto;
 
@@ -10,13 +11,14 @@ namespace Web.Controllers;
 [Route("/api/v1/[controller]")]
 public class OrderController : ControllerBase
 {
+    private ILogger<OrderController> _logger;
     private readonly IValidator<OrderDto> _validator;
     private readonly IOrderRepository _orderRepository;
-    public OrderController(//ILogger<GoodsController> logger,
+    public OrderController(ILogger<OrderController> logger,
         IOrderRepository orderRepository,
         IValidator<OrderDto> validator)
     {
-       //_logger = logger;
+        _logger = logger;
         _orderRepository = orderRepository;
         _validator = validator;
     }

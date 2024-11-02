@@ -27,7 +27,6 @@ public class Startup
         
 
         services.AddSingleton<IOrderRepository, OrderRepository>();
-        services.AddScoped<LoggerMiddleware>();
 
         services.AddValidatorsFromAssemblyContaining<OrderValidator>();
     }
