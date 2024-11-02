@@ -1,1 +1,19 @@
-﻿
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.Extensions.Hosting;
+using Web;
+
+public class Program
+{
+    public static async Task Main(string[] args)
+    {
+        await Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.ConfigureKestrel(op=>{
+                    op.ListenLocalhost(5115, o=> o.Protocols = HttpProtocols.Http1);
+                });
+                webBuilder.UseStartup<Startup>();
+            }).Build().RunAsync();
+    }
+}
