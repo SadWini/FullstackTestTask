@@ -14,6 +14,7 @@ public class OrderController : ControllerBase
     private ILogger<OrderController> _logger;
     private readonly IValidator<OrderDto> _validator;
     private readonly IOrderRepository _orderRepository;
+    private int _orderCount;
     public OrderController(ILogger<OrderController> logger,
         IOrderRepository orderRepository,
         IValidator<OrderDto> validator)
@@ -21,11 +22,11 @@ public class OrderController : ControllerBase
         _logger = logger;
         _orderRepository = orderRepository;
         _validator = validator;
+        _orderCount = 0;
     }
     
-    [HttpPost]
+    [HttpPost("addOrder")]
     [SwaggerOperation("метод добавления заказа")]
-    [Route("/addGood")]
     public IActionResult AddGood(OrderDto orderDto)
     {
         var result = _validator.Validate(orderDto);
@@ -34,21 +35,22 @@ public class OrderController : ControllerBase
             return BadRequest();
         }
 
-        var addedOrder = _orderRepository.Add(new OrderDao()
+        var newOrder = new OrderDao()
         {
             SenderCity = orderDto.SenderCity,
-            SenderAddress= orderDto.SenderAddress,
+            SenderAddress = orderDto.SenderAddress,
             RecipientCity = orderDto.RecipientCity,
-            RecipientAddress= orderDto.RecipientAddress,
+            RecipientAddress = orderDto.RecipientAddress,
             Weight = orderDto.Weight,
             PickupDate = orderDto.PickupDate,
-        });
-        return Ok(addedOrder);
+        };
+
+        _orderRepository.Add(newOrder);
+        return CreatedAtAction(nameof(FindAll), new { id = newOrder.Id }, newOrder);
     }
     
-    [HttpGet]
+    [HttpGet("findAll")]
     [SwaggerOperation("метод получения всех товаров")]
-    [Route("/findAll")]
     public IActionResult FindAll(){
         var value = _orderRepository.GetAll();
         return Ok(value);

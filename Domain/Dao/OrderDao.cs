@@ -2,6 +2,7 @@
 
 public class OrderDao
 {
+    [Key]
     public int Id { get; set; }
        
     [Required]
@@ -20,7 +21,7 @@ public class OrderDao
     public decimal Weight { get; set; }
 
     [Required]
-    public DateTime PickupDate { get; set; }
+    public DateTimeOffset PickupDate { get; set; }
 
     public string OrderNumber => $"ORD-{Id:D5}";
 }

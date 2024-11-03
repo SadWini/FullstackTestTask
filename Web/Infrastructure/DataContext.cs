@@ -12,5 +12,10 @@ public class DataContext : DbContext
         Configuration = configuration;
     }
 
+    protected override void OnConfiguring(DbContextOptionsBuilder options)
+    {
+        options.UseNpgsql(Configuration.GetConnectionString("ApiDatabase"));
+    }
+    
     public DbSet<OrderDao> Orders { get; set; }
 }

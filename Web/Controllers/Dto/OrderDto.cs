@@ -21,5 +21,5 @@ public class OrderDto
     public decimal Weight { get; set; }
     
     [SwaggerSchema("Дата забора груза")]
-    public DateTime PickupDate { get; set; }
+    public DateTimeOffset PickupDate { get; set; }
 }

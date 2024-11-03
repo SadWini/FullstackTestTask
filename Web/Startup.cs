@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using FluentValidation;
 using Npgsql;
 
@@ -26,24 +27,22 @@ public class Startup
         services.AddSwaggerGen(c=>{
             c.EnableAnnotations();
         });
+
+        services.AddDbContext<DataContext>(options =>
+            options.UseNpgsql(_configuration.GetConnectionString("ApiDatabase")));
+        services.AddScoped<IOrderRepository, OrderRepository>();
         
-
-        services.AddSingleton<IOrderRepository, OrderRepository>();
-
         services.AddValidatorsFromAssemblyContaining<OrderValidator>();
-        var connectionString = _configuration["PostgreSql:ConnectionString"];
-        var dbPassword = _configuration["PostgreSql:DbPassword"];
-        var builder = new NpgsqlConnectionStringBuilder(connectionString)
-        {
-            Password = dbPassword
-        };
-        services.AddDbContext<DataContext>(options => options.UseNpgsql(builder.ConnectionString));
     }
 
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
         app.UseRouting();
+        app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapControllers();
+        });
         app.UseMiddleware<LoggerMiddleware>();
 
         if (env.IsDevelopment())
