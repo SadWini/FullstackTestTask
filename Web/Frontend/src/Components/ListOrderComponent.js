@@ -10,17 +10,17 @@ class ListOrderComponent extends Component {
         this.addOrder = this.addOrder.bind(this);
     }
 
-    addUser(){
-        this.props.history.push('/add-user/_add');
+    addOrder(){
+        this.props.history.push('/add-order/_add');
     }
     
     componentDidMount(){
         OrderService.getOrders().then((res) => {
             if(res.data==null)
             {
-                this.props.history.push('/add-user/_add');
+                this.props.history.push('/add-order/_add');
             }
-            this.setState({ users: res.data});
+            this.setState({ orders: res.data});
         });
     }
     render() {

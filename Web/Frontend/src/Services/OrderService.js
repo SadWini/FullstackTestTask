@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const ORDER_API_BASE_URL = "http://localhost:5115/api/v1/Order";
 
-class UserService {
+class OrderService {
 
     getOrders(){
         return axios.get(ORDER_API_BASE_URL + '/' + 'findAll');
@@ -13,4 +13,4 @@ class UserService {
     }
 }
 
-export default new UserService()
+export default new OrderService()

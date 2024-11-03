@@ -32,19 +32,21 @@ class CreateOrderComponent extends Component {
             errorMessage: ''
         };
         console.log('order => ' + JSON.stringify(order));
-
-        if (this.state.id === '_add') {
+        
             OrderService.createOrder(order).then(res => {
                 this.props.history.push('/orders');
             },err => this.setState({errorMessage: err.message}));
-        }
     }
 
     handleInputChange = (event) => {
         const { name, value } = event.target;
         this.setState({ [name]: value });
     }
-
+    
+    cancel = (e) => {
+        e.preventDefault();
+        this.props.history.push('/orders');
+    }
     render() {
         return (
             <div>

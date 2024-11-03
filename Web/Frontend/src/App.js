@@ -14,8 +14,8 @@ function App() {
                 <div className="container">
                     <Switch>
                         <Route path = "/" exact component = {ListOrderComponent}></Route>
-                        <Route path = "/users" component = {ListOrderComponent}></Route>
-                        <Route path = "/add-user/:id" component = {CreateOrderComponent}></Route>
+                        <Route path = "/orders" component = {ListOrderComponent}></Route>
+                        <Route path = "/add-order" component = {CreateOrderComponent}></Route>
                     </Switch>
                 </div>
                 <FooterComponent />
