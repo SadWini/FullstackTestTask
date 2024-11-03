@@ -42,7 +42,7 @@ public class OrderController : ControllerBase
             RecipientCity = orderDto.RecipientCity,
             RecipientAddress = orderDto.RecipientAddress,
             Weight = orderDto.Weight,
-            PickupDate = orderDto.PickupDate,
+            PickupDate = orderDto.PickupDate.ToUniversalTime(),
         };
 
         _orderRepository.Add(newOrder);

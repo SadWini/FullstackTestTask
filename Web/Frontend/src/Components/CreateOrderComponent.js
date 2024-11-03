@@ -32,9 +32,8 @@ class CreateOrderComponent extends Component {
             errorMessage: ''
         };
         console.log('order => ' + JSON.stringify(order));
-        
-            OrderService.createOrder(order).then(res => {
-                this.props.history.push('/orders');
+        OrderService.createOrder(order).then(res => {
+            this.props.history.push('/orders');
             },err => this.setState({errorMessage: err.message}));
     }
 

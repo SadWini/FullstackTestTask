@@ -11,7 +11,7 @@ public class Program
             .ConfigureWebHostDefaults(webBuilder =>
             {
                 webBuilder.ConfigureKestrel(op=>{
-                    op.ListenLocalhost(5115, o=> o.Protocols = HttpProtocols.Http1);
+                    op.ListenLocalhost(7056, o=> o.Protocols = HttpProtocols.Http1);
                     op.ListenLocalhost(5001, o => o.Protocols = HttpProtocols.Http2);
                 });
                 webBuilder.UseStartup<Startup>();

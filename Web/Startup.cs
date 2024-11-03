@@ -23,6 +23,14 @@ public class Startup
     }
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddCors(options =>
+            {
+                options.AddPolicy("AllowReactApp",
+                    builder => builder
+                        .WithOrigins("http://localhost:3000") // Allow only the React app
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
+            });
         services.AddControllers();
         services.AddSwaggerGen(c=>{
             c.EnableAnnotations();
@@ -38,6 +46,7 @@ public class Startup
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
+        app.UseCors("AllowReactApp");
         app.UseRouting();
         app.UseEndpoints(endpoints =>
         {
